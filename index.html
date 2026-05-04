@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FADIL SULTAN VIRAL | Dual Server</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --primary: #ff0033;
+      --bg: #0a0a0a;
+      --card: #151515;
+      --text: #fff;
+      --accent: #00ff88;
+      --server1: #ff0033;
+      --server2: #0099ff;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+    
+    /* LOGIN SCREEN SERVER 2 */
+    .login-screen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.95);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .login-box {
+      background: var(--card);
+      padding: 30px;
+      border-radius: 15px;
+      border: 2px solid var(--server2);
+      width: 90%;
+      max-width: 350px;
+      text-align: center;
+    }
+    .login-box h2 { color: var(--server2); margin-bottom: 20px; }
+    .login-box input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      background: #222;
+      border: 1px solid #333;
+      color: #fff;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 16px;
+    }
+    .login-box button {
+      width: 100%;
+      padding: 12px;
+      background: var(--server2);
+      border: none;
+      color: #000;
+      font-weight: 700;
+      border-radius: 8px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    /* HEADER DUAL SERVER */
+    .server-switch {
+      position: fixed;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--card);
+      border-radius: 50px;
+      padding: 5px;
+      display: flex;
+      z-index: 1000;
+      border: 2px solid #333;
+    }
+    .server-btn {
+      padding: 8px 20px;
+      border-radius: 50px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .server-btn.active {
+      background: var(--primary);
+      color: #000;
+    }
+    .server-btn.server2.active {
+      background: var(--server2);
+    }
+
+    /* DEVELOPER BADGE */
+    .dev-badge {
+      position: fixed;
+      top: 15px; left: 15px;
+      background: linear-gradient(45deg, #ff0033, #ff8800);
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      z-index: 1000;
+    }
+
+    /* SETTING BUTTON */
+    .setting-btn {
+      position: fixed;
+      top: 15px; right: 15px;
+      background: var(--card);
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      width: 45px; height: 45px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    /* MUSIC CONTROL */
+    .music-control {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: var(--card);
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .music-control.playing { animation: musicSpin 2s linear infinite; }
+    @keyframes musicSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    /* SERVER CONTAINERS */
+    .server-container { display: none; min-height: 100vh; }
+    .server-container.active { display: block; }
+
+    /* SERVER 1 - MAIN */
+    .hero {
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: radial-gradient(circle at center, #1a0000 0%, #000 70%);
+      padding: 80px 20px 20px;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      background: linear-gradient(45deg, var(--server1), #ff8800, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* VIDEO SECTION */
+    .video-section {
+      width: 100%;
+      max-width: 600px;
+      margin: 20px auto;
+      border: 3px solid var(--primary);
+      border-radius: 15px;
+      overflow: hidden;
+    }
+    .video-section iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+    }
+
+    /* 20 FITUR VIRAL */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .feature-card {
+      background: var(--card);
+      padding: 20px 10px;
+      border-radius: 15px;
+      text-align: center;
+      border: 1px solid #333;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary);
+    }
+    .feature-card i {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    /* PREMIUM STORE */
+    .premium-store {
+      background: var(--card);
+      margin: 20px;
+      padding: 20px;
+      border-radius: 15px;
+      border: 2px solid gold;
+    }
+    .premium-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+    .premium-item {
+      background: #222;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .buy-btn {
+      background: gold;
+      color: #000;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-weight: 700;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    /* SERVER 2 - ADMIN */
+    .admin-panel {
+      padding: 80px 20px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .admin-section {
+      background: var(--card);
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      border: 1px solid var(--server2);
+    }
+    .admin-section h3 { color: var(--server2); margin-bottom: 15px; }
+    .admin-input {
+      width: 100%;
+      padding: 10px;
+      background: #222;
+      border: 1px solid #333;
+      color: #fff;
+      border-radius: 8px;
+      margin: 8px 0;
+    }
+
+    /* INFO SERVER */
+    .server-info {
+      background: rgba(0,153,255,0.1);
+      border: 1px solid var(--server2);
+      padding: 15px;
+      border-radius: 10px;
+      margin: 20px;
+      font-size: 14px;
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #000;
+      padding: 12px 25px;
+      border-radius: 50px;
+      font-weight: 700;
+      transition: 0.4s;
+      z-index: 1001;
+    }
+    .toast.show { bottom: 30px; }
+
+    /* ANIME DANCE */
+    .anime-container {
+      position: fixed;
+      bottom: 0;
+      right: 5%;
+      width: 150px;
+      height: 200px;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .anime-girl {
+      width: 100%;
+      height: 100%;
+      background: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdDZ0ZzZ6YzZ4aGg3cTN1cnQ5b2J2bXg5b3Z1dGJ1Z3E3d3R6dSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/3o7TKz2eMXx7dn95FS/giphy.gif') center/contain no-repeat;
+      animation: dance 1s infinite alternate ease-in-out;
+    }
+    @keyframes dance {
+      0% { transform: translateY(0) rotate(-2deg); }
+      100% { transform: translateY(-15px) rotate(2deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- LOGIN SERVER 2 -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-box">
+      <h2><i class="fas fa-lock"></i> SERVER 2 ADMIN</h2>
+      <p>Masukin Password Developer</p>
+      <input type="password" id="adminPass" placeholder="Password">
+      <button onclick="checkLogin()">MASUK SERVER 2</button>
+      <button onclick="closeLogin()" style="background:#333;color:#fff;margin-top:10px;">KEMBALI</button>
+    </div>
+  </div>
+
+  <!-- AUDIO GOOGLE DRIVE -->
+  <audio id="bgMusic" loop>
+    <source src="https://docs.google.com/uc?export=download&id=1838SqIB1dEB7Mar7YkUVuJ5qbkNfRz_g" type="audio/mpeg">
+  </audio>
+
+  <!-- DEVELOPER BADGE -->
+  <div class="dev-badge">
+    <i class="fas fa-code"></i> DEV: FADIL SULTAN
+  </div>
+
+  <!-- SERVER SWITCH -->
+  <div class="server-switch">
+    <button class="server-btn server1 active" onclick="switchServer(1)">SERVER 1</button>
+    <button class="server-btn server2" onclick="showLogin()">SERVER 2</button>
+  </div>
+
+  <!-- SETTING BUTTON -->
+  <button class="setting-btn" onclick="showToast('Setting ada di Server 2')">
+    <i class="fas fa-cog"></i>
+  </button>
+
+  <!-- MUSIC CONTROL -->
+  <button class="music-control" id="musicBtn" onclick="toggleMusic()">
+    <i class="fas fa-music"></i>
+  </button>
+
+  <!-- ANIME DANCE -->
+  <div class="anime-container">
+    <div class="anime-girl"></div>
+  </div>
+
+  <!-- SERVER 1 - MAIN -->
+  <div class="server-container active" id="server1">
+    <section class="hero">
+      <h1>FADIL SULTAN VIRAL</h1>
+      <p>Server 1: 20 Fitur Viral + Premium Store</p>
+      <div style="color:var(--accent);margin-top:10px;">
+        <i class="fas fa-crown"></i> Developed by FADIL SULTAN | <i class="fas fa-server"></i> Main Server
+      </div>
+    </section>
+
+    <!-- VIDEO TENGAH -->
+    <div class="video-section">
+      <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1" allowfullscreen></iframe>
+    </div>
+
+    <!-- INFO SERVER -->
+    <div class="server-info">
+      <i class="fas fa-info-circle"></i> <b>INFO SERVER 1:</b> Server utama berisi 20 fitur viral gratis. Server 2 untuk setting semua fitur ini. Password Server 2: FADIL01043
+    </div>
+
+    <!-- 20 FITUR VIRAL -->
+    <div class="features-grid">
+      <div class="feature-card" onclick="showToast('Fitur 1: Auto Share WA')"><i class="fab fa-whatsapp"></i><br>Auto Share WA</div>
+      <div class="feature-card" onclick="showToast('Fitur 2: Download TikTok')"><i class="fab fa-tiktok"></i><br>Download TikTok</div>
+      <div class="feature-card" onclick="showToast('Fitur 3: FYP Booster')"><i class="fas fa-rocket"></i><br>FYP Booster</div>
+      <div class="feature-card" onclick="showToast('Fitur 4: Auto Like')"><i class="fas fa-heart"></i><br>Auto Like</div>
+      <div class="feature-card" onclick="showToast('Fitur 5: Spam Comment')"><i class="fas fa-comments"></i><br>Spam Comment</div>
+      <div class="feature-card" onclick="showToast('Fitur 6: Video Maker')"><i class="fas fa-video"></i><br>Video Maker</div>
+      <div class="feature-card" onclick="showToast('Fitur 7: Sound Viral')"><i class="fas fa-music"></i><br>Sound Viral</div>
+      <div class="feature-card" onclick="showToast('Fitur 8: Template CapCut')"><i class="fas fa-cut"></i><br>Template CapCut</div>
+      <div class="feature-card" onclick="showToast('Fitur 9: Font Aesthetic')"><i class="fas fa-font"></i><br>Font Aesthetic</div>
+      <div class="feature-card" onclick="showToast('Fitur 10: Bio Generator')"><i class="fas fa-user"></i><br>Bio Generator</div>
+      <div class="feature-card" onclick="showToast('Fitur 11: Hashtag Viral')"><i class="fas fa-hashtag"></i><br>Hashtag Viral</div>
+      <div class="feature-card" onclick="showToast('Fitur 12: Jam FYP')"><i class="fas fa-clock"></i><br>Jam FYP</div>
+      <div class="feature-card" onclick="showToast('Fitur 13: Stiker WA')"><i class="fas fa-sticky-note"></i><br>Stiker WA</div>
+      <div class="feature-card" onclick="showToast('Fitur 14: PP Anime')"><i class="fas fa-image"></i><br>PP Anime</div>
+      <div class="feature-card" onclick="showToast('Fitur 15: Nama Aesthetic')"><i class="fas fa-signature"></i><br>Nama Aesthetic</div>
+      <div class="feature-card" onclick="showToast('Fitur 16: Quotes Viral')"><i class="fas fa-quote-left"></i><br>Quotes Viral</div>
+      <div class="feature-card" onclick="showToast('Fitur 17: Filter IG')"><i class="fab fa-instagram"></i><br>Filter IG</div>
+      <div class="feature-card" onclick="showToast('Fitur 18: Backsound')"><i class="fas fa-headphones"></i><br>Backsound</div>
+      <div class="feature-card" onclick="showToast('Fitur 19: Trend Checker')"><i class="fas fa-chart-line"></i><br>Trend Checker</div>
+      <div class="feature-card" onclick="showToast('Fitur 20: Link in Bio')"><i class="fas fa-link"></i><br>Link in Bio</div>
+    </div>
+
+    <!-- PREMIUM STORE -->
+    <div class="premium-store">
+      <h3><i class="fas fa-crown" style="color:gold;"></i> PREMIUM STORE</h3>
+      <p>Beli APK Premium & Game Mod</p>
+      <div class="premium-grid">
+        <div class="premium-item">
+          <i class="fas fa-cut" style="font-size:2rem;color:gold;"></i>
+          <h4>CapCut Pro</h4>
+          <p>No Watermark + All Effect</p>
+          <button class="buy-btn" onclick="buyPremium('CapCut Pro')">BELI 50K</button>
+        </div>
+        <div class="premium-item">
+          <i class="fas fa-gamepad" style="font-size:2rem;color:gold;"></i>
+          <h4>FF Max Mod</h4>
+          <p>Unlimited Diamond</p>
+          <button class="buy-btn" onclick="buyPremium('FF Max')">BELI 100K</button>
+        </div>
+        <div class="premium-item">
+          <i class="fas fa-photo-film" style="font-size:2rem;color:gold;"></i>
+          <h4>Alight Motion Pro</h4>
+          <p>No Watermark</p>
+          <button class="buy-btn" onclick="buyPremium('AM Pro')">BELI 40K</button>
+        </div>
+        <div class="premium-item">
+          <i class="fas fa-mobile" style="font-size:2rem;color:gold;"></i>
+          <h4>MLBB Mod</h4>
+          <p>All Skin Unlock</p>
+          <button class="buy-btn" onclick="buyPremium('MLBB')">BELI 150K</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVER 2 - ADMIN -->
+  <div class="server-container" id="server2">
+    <div class="admin-panel">
+      <h1 style="color:var(--server2);text-align:center;margin-bottom:30px;">
+        <i class="fas fa-user-shield"></i> SERVER 2 ADMIN PANEL
+      </h1>
+
+      <div class="admin-section">
+        <h3><i class="fas fa-cog"></i> Setting Server 1</h3>
+        <label>Judul Server 1:</label>
+        <input type="text" class="admin-input" id="server1Title" value="FADIL SULTAN VIRAL">
+        
+        <label>Warna Primary Server 1:</label>
+        <input type="color" class="admin-input" id="server1Color" value="#ff0033">
+        
+        <label>Link Video Tengah:</label>
+        <input type="text" class="admin-input" id="videoLink" value="https://www.youtube.com/embed/dQw4w9WgXcQ">
+        
+        <button class="buy-btn" style="background:var(--server2);width:100%;" onclick="saveServer1()">
+          <i class="fas fa-save"></i> SIMPAN SETTING SERVER 1
+        </button>
+      </div>
+
+      <div class="admin-section">
+        <h3><i class="fas fa-chart-bar"></i> Statistik Server</h3>
+        <p>Total Views: <span id="totalViews">0</span></p>
+        <p>Total Shares: <span id="totalShares">0</span></p>
+        <p>User Online: <span id="onlineUsers">0</span></p>
+        <button class="buy-btn" style="background:#ff3333;width:100%;" onclick="resetStats()">
+          <i class="fas fa-trash"></i> RESET SEMUA STATISTIK
+        </button>
+      </div>
+
+      <div class="admin-section">
+        <h3><i class="fas fa-info-circle"></i> Info Server</h3>
+        <p><b>Developer:</b> FADIL SULTAN</p>
+        <p><b>Server 1:</b> Public - 20 Fitur Viral</p>
+        <p><b>Server 2:</b> Admin Only - Password: FADIL01043</p>
+        <p><b>Hosting:</b> GitHub Pages 24/7</p>
+        <p><b>Update:</b> V4 Dual Server Edition</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // === CONFIG ===
+    const ADMIN_PASSWORD = "FADIL01043";
+    let currentServer = 1;
+    let stats = JSON.parse(localStorage.getItem('fadilStats')) || { views: 0, shares: 0 };
+    let server1Config = JSON.parse(localStorage.getItem('server1Config')) || {
+      title: 'FADIL SULTAN VIRAL',
+      color: '#ff0033',
+      video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+    };
+
+    const bgMusic = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicBtn');
+
+    // === INIT ===
+    function init() {
+      applyServer1Config();
+      updateStats();
+      stats.views++;
+      saveStats();
+      updateStats();
+      autoPlayMusic();
+      fakeOnline();
+    }
+
+    function applyServer1Config() {
+      document.querySelector('#server1 h1').textContent = server1Config.title;
+      document.documentElement.style.setProperty('--primary', server1Config.color);
+      document.querySelector('.video-section iframe').src = server1Config.video + '?autoplay=1&mute=1';
+    }
+
+    // === SERVER SWITCH ===
+    function switchServer(serverNum) {
+      currentServer = serverNum;
+      document.querySelectorAll('.server-container').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.server-btn').forEach(el => el.classList.remove('active'));
+      
+      document.getElementById(`server${serverNum}`).classList.add('active');
+      document.querySelector(`.server${serverNum}`).classList.add('active');
+    }
+
+    function showLogin() {
+      document.getElementById('loginScreen').style.display = 'flex';
+    }
+
+    function closeLogin() {
+      document.getElementById('loginScreen').style.display = 'none';
+    }
+
+    function checkLogin() {
+      const pass = document.getElementById('adminPass').value;
+      if (pass === ADMIN_PASSWORD) {
+        closeLogin();
+        switchServer(2);
+        showToast('Welcome Developer FADIL SULTAN!');
+      } else {
+        showToast('Password Salah!');
+      }
+    }
+
+    // === SERVER 2 ADMIN ===
+    function saveServer1() {
+      server1Config.title = document.getElementById('server1Title').value;
+      server1Config.color = document.getElementById('server1Color').value;
+      server1Config.video = document.getElementById('videoLink').value;
+      
+      localStorage.setItem('server1Config', JSON.stringify(server1Config));
+      applyServer1Config();
+      showToast('Setting Server 1 Disimpan!');
+    }
+
+    function resetStats() {
+      stats = { views: 0, shares: 0 };
+      saveStats();
+      updateStats();
+      showToast('Statistik Direset!');
+    }
+
+    // === STATS ===
+    function updateStats() {
+      document.getElementById('totalViews').textContent = stats.views.toLocaleString();
+      document.getElementById('totalShares').textContent = stats.shares.toLocaleString();
+    }
+
+    function saveStats() {
+      localStorage.setItem('fadilStats', JSON.stringify(stats));
+    }
+
+    // === MUSIC ===
+    function autoPlayMusic() {
+      document.body.addEventListener('click', () => {
+        if (bgMusic.paused) {
+          bgMusic.play().then(() => {
+            musicBtn.classList.add('playing');
+          }).catch(e => console.log('Autoplay diblokir'));
+        }
+      }, { once: true });
+    }
+
+    function toggleMusic() {
+      if (bgMusic.paused) {
+        bgMusic.play();
+        musicBtn.classList.add('playing');
+        showToast('Musik ON');
+      } else {
+        bgMusic.pause();
+        musicBtn.classList.remove('playing');
+        showToast('Musik OFF');
+      }
+    }
+
+    // === PREMIUM ===
+    function buyPremium(item) {
+      showToast(`Order ${item} via WA: 0858xxxx`);
+      window.open(`https://wa.me/62858xxxx?text=Saya mau beli ${item}`);
+    }
+
+    // === UTILS ===
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    function fakeOnline() {
+      setInterval(() => {
+        const online = Math.floor(Math.random() * 50) + 20;
+        document.getElementById('onlineUsers').textContent = online;
+      }, 3000);
+    }
+
+    // START
+    init();
+  </script>
+</body>
+  </html>
