@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fadil Sultan - Tools Viral Android 8</title>
+    <style>
+        :root {--bg:#0f172a;--card:#1e293b;--text:#e2e8f0;--accent:#3b82f6;--green:#22c55e;--red:#ef4444;--pink:#ec4899}
+        * {margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
+        body {background:var(--bg);color:var(--text);font-size:16px}
+     .nav {background:linear-gradient(135deg,#ef4444,#f97316);padding:15px;text-align:center}
+     .nav h1 {font-size:20px;color:#fff;font-weight:900}
+     .container {max-width:900px;margin:0 auto;padding:15px}
+     .card {background:var(--card);border-radius:16px;padding:20px;margin-bottom:15px}
+     .card h2 {color:var(--accent);margin-bottom:15px;font-size:18px}
+     .tool-grid {display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+     .tool {background:var(--bg);padding:18px;border-radius:12px;text-align:center;color:var(--text);border:1px solid #333}
+     .profile {display:flex;gap:15px;align-items:center}
+     .profile img {width:70px;height:70px;border-radius:50%;border:3px solid var(--green)}
+     .social {display:flex;gap:10px;margin-top:12px}
+     .social a {flex:1;text-align:center;background:var(--accent);color:#fff;padding:12px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:bold}
+     .wa {background:#25d366!important}
+     .tele {background:#0088cc!important}
+     .modal {display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:999;padding:20px}
+     .modal-content {background:var(--card);padding:20px;border-radius:16px;margin-top:20%}
+     .modal input,.modal select {width:100%;padding:12px;margin:8px 0;background:var(--bg);border:1px solid #333;border-radius:8px;color:var(--text)}
+     .modal button {width:100%;padding:12px;background:var(--accent);color:#fff;border:none;border-radius:8px;margin-top:10px}
+     .close {float:right;font-size:28px}
+     .result {background:var(--bg);padding:15px;border-radius:8px;margin-top:15px}
+     .live {display:inline-block;width:8px;height:8px;background:var(--green);border-radius:50%;margin-right:5px}
+    </style>
+</head>
+<body>
+    <div class="nav"><h1>👑 FADIL SULTAN ANDROID 8</h1></div>
+    <div class="container">
+        <div class="card">
+            <div class="profile">
+                <img src="https://ui-avatars.com/api/?name=Fadil+Sultan&background=22c55e&color=fff" alt="Fadil">
+                <div>
+                    <h3>Fadil Sultan <span style="background:var(--green);color:#fff;padding:2px 6px;border-radius:5px;font-size:10px">DEV</span></h3>
+                    <p>📍 Tebing Tinggi | 🎓 SMP Kelas 8</p>
+                    <p>💻 <span class="live"></span>Online 24/7 | ❤️ Shina</p>
+                </div>
+            </div>
+            <div class="social">
+                <a href="https://wa.me/6285187036100" class="wa">💬 WA Gw</a>
+                <a href="https://t.me/FADIL01043" class="tele">📨 Telegram</a>
+            </div>
+        </div>
+        <div class="card">
+            <h2>9 Tools Viral No Lag</h2>
+            <div class="tool-grid">
+                <div class="tool" onclick="showKhodam()">👻<br><b>Cek Khodam</b></div>
+                <div class="tool" onclick="showBio()">✨<br><b>Bio Aesthetic</b></div>
+                <div class="tool" onclick="showGanteng()">😎<br><b>Rating Ganteng</b></div>
+                <div class="tool" onclick="showTiktok()">🎵<br><b>Download TikTok</b></div>
+                <div class="tool" onclick="showNickname()">🎮<br><b>Nama FF/ML</b></div>
+                <div class="tool" onclick="showStalk()">🕵️<br><b>Stalk IG</b></div>
+                <div class="tool" onclick="calc()">🧮<br><b>Kalkulator</b></div>
+                <div class="tool" onclick="alert('Speed: 50Mbps')">⚡<br><b>Speed Test</b></div>
+            </div>
+        </div>
+        <div class="card" style="text-align:center;font-size:12px">
+            © 2026 Fadil Sultan | Support Android 8<br>
+            Visitor: <span id="visitor">3142</span> | <span class="live"></span>Online
+        </div>
+    </div>
+
+    <div id="modal" class="modal"><div class="modal-content"><span class="close" onclick="closeModal()">&times;</span><div id="modalIsi"></div></div></div>
+
+<script>
+function closeModal(){document.getElementById('modal').style.display='none'}
+function showKhodam(){
+    let n=prompt('Nama lu:')||'Fadil';
+    let k=['Macan Putih','Naga Merah','Garuda Emas'][Math.floor(Math.random()*3)];
+    let p=Math.floor(Math.random()*100)+1;
+    document.getElementById('modalIsi').innerHTML=`<h2>👻 Khodam ${n}</h2><b style="font-size:20px;color:#eab308">${k}</b><br>Power: ${p}%`;
+    document.getElementById('modal').style.display='block';
+}
+function showBio(){
+    let n=prompt('Nama lu:')||'Fadil';
+    let bio=`👑 ${n} SULTAN 👑\n💰 Money • Game\n📍 Tebing Tinggi`;
+    document.getElementById('modalIsi').innerHTML=`<h2>✨ Bio Lu</h2><b style="white-space:pre-line">${bio}</b><br><button onclick="navigator.clipboard.writeText(\`${bio}\`)">Copy</button>`;
+    document.getElementById('modal').style.display='block';
+}
+function showGanteng(){
+    let n=prompt('Nama lu:')||'Fadil';
+    let r=Math.floor(Math.random()*30)+70;
+    document.getElementById('modalIsi').innerHTML=`<h2>😎 Rating ${n}</h2><b style="font-size:30px;color:#ec4899">${r}/100</b>`;
+    document.getElementById('modal').style.display='block';
+}
+function showTiktok(){
+    let url=prompt('Link TikTok:');
+    document.getElementById('modalIsi').innerHTML=`<h2>Download TikTok</h2>✅ Link Siap!<br><a href="${url}" style="color:#3b82f6">Download Tanpa WM</a>`;
+    document.getElementById('modal').style.display='block';
+}
+function showNickname(){
+    let n=prompt('Nama asli:')||'Fadil';
+    let nick=`꧁༺${n}FF99༻꧂`;
+    document.getElementById('modalIsi').innerHTML=`<h2>Nama FF</h2><b style="font-size:18px;color:#ec4899">${nick}</b><br><button onclick="navigator.clipboard.writeText('${nick}')">Copy</button>`;
+    document.getElementById('modal').style.display='block';
+}
+function showStalk(){
+    let u=prompt('Username IG:');
+    document.getElementById('modalIsi').innerHTML=`<h2>@${u}</h2>Followers: ${Math.floor(Math.random()*5000)}<br>Story: Ada 2`;
+    document.getElementById('modal').style.display='block';
+}
+function calc(){
+    let h=prompt('Hitung: contoh 5+5');
+    try{document.getElementById('modalIsi').innerHTML=`<h2>Hasil</h2><b>${eval(h)}</b>`}catch{document.getElementById('modalIsi').innerHTML=`Error`}
+    document.getElementById('modal').style.display='block';
+}
+setInterval(()=>{document.getElementById('visitor').innerHTML=parseInt(document.getElementById('visitor').innerHTML)+1},5000);
+</script>
+</body>
+  </html>
